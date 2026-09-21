@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Grammar Quiz: Comparison & Past Simple</title>
+  <style>
+    /* ============================================================
+       1. Custom Glowing Blue Cursor (Single Style)
+       ============================================================ */
+    *, html, body, button, input, select, a, [role="button"], .option-btn, .action-btn, .music-btn, .volume-slider, .word-token {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 3 L11 23 L15 15 L23 11 Z' fill='%230284c7' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round' filter='drop-shadow(0 0 4px %2338bdf8)'/%3E%3C/svg%3E"), auto !important;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+      background-color: #0b1e42;
+    }
+
+    /* Animated Liquid Silk Background */
+    .bg-image {
+      position: fixed;
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
+      background: url('https://img.freepik.com/premium-photo/abstract-liquid-blue-silk-background-wavy-fabric-texture_875833-316.jpg') center/cover no-repeat;
+      z-index: 1;
+      animation: waveFlow 18s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes waveFlow {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.05) translate(-1%, -1.5%); }
+      100% { transform: scale(1.03) translate(1%, 1%); }
+    }
+
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 24, 60, 0.45);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* BGM Controls */
+    .music-widget {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 10;
+      background: rgba(11, 30, 66, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+    .music-btn {
+      background: #0284c7;
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+    .music-btn:hover {
+      background: #0369a1;
+      transform: scale(1.06);
+    }
+    .volume-slider {
+      accent-color: #38bdf8;
+      width: 75px;
+    }
+
+    /* Card Container */
+    .game-card {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+      border-radius: 24px;
+      max-width: 580px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 45px rgba(3, 15, 43, 0.5);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.2s ease;
+    }
+
+    .card-bounce {
+      animation: bounce 0.4s ease;
+    }
+    .card-shake {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    .intro-title {
+      color: #0c4a6e;
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .intro-desc {
+      color: #475569;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .grammar-summary-box {
+      background: #f0f9ff;
+      border: 1.5px solid #bae6fd;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #1e293b;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+    .grammar-summary-box h3 {
+      margin: 12px 0 6px 0;
+      font-size: 16px;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .grammar-summary-box h3:first-child {
+      margin-top: 0;
+    }
+    .grammar-summary-box ul {
+      margin: 4px 0 10px 18px;
+      padding: 0;
+    }
+    .grammar-summary-box code {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #0284c7;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .prompt-text {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .sentence {
+      font-size: 20px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .blank {
+      display: inline-block;
+      min-width: 90px;
+      border-bottom: 3px solid #0284c7;
+      color: #0284c7;
+      padding: 0 6px;
+    }
+
+    /* Multiple Choice Grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .option-btn {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-bottom: 4px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #334155;
+      transition: transform 0.1s, border-color 0.1s, background-color 0.15s;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: #f8fafc;
+    }
+    .option-btn:active:not(:disabled) {
+      transform: translateY(2px);
+      border-bottom-width: 2px;
+    }
+    .option-btn.selected {
+      border-color: #38bdf8;
+      background: #f0f9ff;
+      color: #0284c7;
+    }
+    .option-btn.correct {
+      border-color: #22c55e !important;
+      background: #dcfce7 !important;
+      color: #15803d !important;
+      border-bottom-color: #16a34a !important;
+    }
+    .option-btn.wrong {
+      border-color: #ef4444 !important;
+      background: #fee2e2 !important;
+      color: #b91c1c !important;
+      border-bottom-color: #dc2626 !important;
+    }
+
+    /* ============================================================
+       ปรับปรุงกล่องเรียงประโยคให้โค้งมน สวยงาม ประหยัดพื้นที่
+       ============================================================ */
+    .sentence-builder-area {
+      margin-bottom: 20px;
+    }
+    .builder-target-box {
+      min-height: 54px;
+      border: 1.5px dashed #38bdf8;
+      border-radius: 28px;
+      background: rgba(240, 249, 255, 0.7);
+      padding: 6px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      transition: all 0.2s ease;
+    }
+    .builder-word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      min-height: 48px;
+      padding: 2px;
+    }
+    .word-token {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-bottom: 3px solid #94a3b8;
+      padding: 7px 15px;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e293b;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .word-token:hover:not(.disabled) {
+      background: #f8fafc;
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+    .word-token:active:not(.disabled) {
+      transform: translateY(2px);
+      border-bottom-width: 1.5px;
+    }
+    .word-token.in-target {
+      background: #0284c7;
+      border-color: #0284c7;
+      border-bottom-color: #0369a1;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    }
+    .word-token.disabled {
+      opacity: 0.2;
+      background: #f1f5f9;
+      border-color: #e2e8f0;
+      border-bottom: 1.5px solid #cbd5e1;
+      pointer-events: none;
+    }
+
+    .footer-action {
+      margin-top: 10px;
+    }
+    .action-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 14px;
+      border: none;
+      border-bottom: 4px solid #0369a1;
+      background: #0284c7;
+      color: white;
+      transition: background 0.15s ease;
+    }
+    .action-btn:hover:not(:disabled) {
+      background: #0369a1;
+    }
+    .action-btn:disabled {
+      background: #e2e8f0;
+      border-bottom: 4px solid #cbd5e1;
+      color: #94a3b8;
+    }
+    .feedback-box {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      display: none;
+    }
+    .feedback-correct {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+    .feedback-wrong {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+
+    .badge-level {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 10px 0 16px 0;
+    }
+    .badge-excellent { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .badge-good { background: #e0f2fe; color: #0284c7; border: 1px solid #7dd3fc; }
+    .badge-fair { background: #fef9c3; color: #a16207; border: 1px solid #fde047; }
+    .badge-improve { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+
+    .advice-card {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 0;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #334155;
+    }
+    .advice-card h4 {
+      margin: 0 0 8px 0;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .advice-card ul {
+      margin: 4px 0 0 18px;
+      padding: 0;
+    }
+
+    .creator-card {
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin: 18px 0 22px 0;
+      text-align: center;
+    }
+    .creator-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+    .creator-info {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Liquid Wave Background -->
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
+
+<!-- Background Music & Controls -->
+<div class="music-widget">
+  <span>🎧 Lo-fi BGM</span>
+  <button class="music-btn" id="music-toggle" title="Play / Pause">▶</button>
+  <input type="range" class="volume-slider" id="volume-ctrl" min="0" max="1" step="0.05" value="0.3" title="Volume">
+</div>
+
+<div class="game-card" id="game-card">
+
+  <!-- 1. Quick Grammar Review -->
+  <div id="intro-container">
+    <h2 class="intro-title">Quick Grammar Review</h2>
+    <div class="intro-desc">Review the key concepts below before taking the quiz.</div>
+
+    <div class="grammar-summary-box">
+      <h3>📌 1. Comparative & Superlative</h3>
+      <ul>
+        <li><b>Comparative:</b> Used to compare 2 things (keyword: <code>than</code>).
+          <br>• Short adjectives: <code>Adj + -er than</code> (e.g., <i>bigger, faster</i>)
+          <br>• Long adjectives (2+ syllables): <code>more + Adj than</code> (e.g., <i>more difficult</i>)
+        </li>
+        <li><b>Superlative:</b> Used to compare 3 or more things (always requires <code>the</code>).
+          <br>• Short adjectives: <code>the + Adj + -est</code> (e.g., <i>the highest, the smartest</i>)
+          <br>• Long adjectives: <code>the most + Adj</code> (e.g., <i>the most expensive</i>)
+        </li>
+        <li><b>Irregular forms:</b> bad → worse → <code>the worst</code>, good → better → <code>the best</code></li>
+      </ul>
+
+      <h3>📌 2. Past Simple Tense</h3>
+      <ul>
+        <li><b>Affirmative:</b> <code>Subject + V.2</code>
+          <br>(e.g., <i>He lay under the tree. / The car cost a lot.</i>)
+        </li>
+        <li><b>Negative & Questions:</b> Use <code>did / didn't</code> + <code>bare infinitive (V.1)</code>
+          <br>(e.g., <i>Why didn't you contact...?</i>)
+        </li>
+        <li><b>Passive Voice in Past:</b> <code>was / were + V.3</code>
+          <br>(e.g., <i>Artifacts were stolen...</i>)
+        </li>
+        <li><b>Special Structure:</b> <code>It was (high) time + Subject + V.2</code>
+          <br>(e.g., <i>It was high time they took action.</i>)
+        </li>
+      </ul>
+    </div>
+
+    <button class="action-btn" onclick="startGame()">Start Quiz</button>
+  </div>
+
+  <!-- 2. Quiz Play Area -->
+  <div id="game-play-area" style="display: none;">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress"></div>
+    </div>
+
+    <div id="quiz-container">
+      <div class="prompt-text" id="prompt-text">Choose the correct option:</div>
+      <div class="sentence" id="sentence-text"></div>
+      
+      <!-- Multiple Choice Type -->
+      <div class="options-grid" id="options-container"></div>
+      
+      <!-- Sentence Reorder Type (ดีไซน์ใหม่ โค้งมน ไม่กินพื้นที่) -->
+      <div class="sentence-builder-area" id="builder-container" style="display: none;">
+        <div class="builder-target-box" id="builder-target-box"></div>
+        <div class="builder-word-bank" id="builder-word-bank"></div>
+      </div>
+
+      <div class="footer-action">
+        <button class="action-btn" id="submit-btn" disabled>Check Answer</button>
+      </div>
+      <div class="feedback-box" id="feedback"></div>
+    </div>
+  </div>
+
+  <!-- 3. Performance & Results Area -->
+  <div id="result-container" style="display: none;">
+    <h2>Quiz Results</h2>
+    <p id="final-score" style="font-size: 24px; font-weight: bold; color: #0c4a6e; margin: 8px 0;"></p>
+    
+    <div id="grade-badge" class="badge-level"></div>
+    <div id="advice-box" class="advice-card"></div>
+
+    <div class="creator-card">
+      <div class="creator-label">TEAM MEMBERS</div>
+      <div class="creator-info">
+        Member Name 1<br>
+        Member Name 2<br>
+      </div>
+    </div>
+
+    <button class="action-btn" onclick="restartGame()">Try Again</button>
+  </div>
+
+</div>
+
+<script>
+  /* ============================================================
+     1. Built-in Procedural Lo-fi Audio Engine (ไม่มีวันลิงก์เสีย)
+     ============================================================ */
+  let audioCtx = null;
+  let masterGain = null;
+  let isMusicPlaying = false;
+  let loFiLoopTimer = null;
+
+  const musicToggle = document.getElementById("music-toggle");
+  const volumeCtrl = document.getElementById("volume-ctrl");
+
+  // คอร์ดเปียโนแนว Lo-fi Chillhop (Fmaj7 -> Em7 -> Dm7 -> Cmaj7)
+  const lofiChords = [
+    [174.61, 220.00, 261.63, 329.63], // Fmaj7
+    [164.81, 196.00, 246.94, 293.66], // Em7
+    [146.83, 174.61, 220.00, 261.63], // Dm7
+    [130.81, 164.81, 196.00, 246.94]  // Cmaj7
+  ];
+
+  function initAudio() {
+    if (!audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContextClass();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = parseFloat(volumeCtrl.value);
+      masterGain.connect(audioCtx.destination);
+    }
+  }
+
+  function playSoftTone(freq, time, duration) {
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    const filter = audioCtx.createBiquadFilter();
+
+    // กรองเสียงสูงออกเพื่อความนุ่มละมุนสไตล์ Lo-fi
+    filter.type = "lowpass";
+    filter.frequency.value = 850;
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(freq, time);
+
+    gain.gain.setValueAtTime(0, time);
+    gain.gain.linearRampToValueAtTime(0.08, time + 0.1);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(masterGain);
+
+    osc.start(time);
+    osc.stop(time + duration);
+  }
+
+  let chordIndex = 0;
+  function scheduleLoFiStep() {
+    if (!isMusicPlaying || !audioCtx) return;
+    const now = audioCtx.currentTime;
+    const chord = lofiChords[chordIndex];
+
+    chord.forEach((freq, idx) => {
+      // เล่นคอร์ดแบบกระจายโน้ตเบาๆ (Strum / Arpeggio)
+      playSoftTone(freq, now + (idx * 0.08), 2.2);
+    });
+
+    chordIndex = (chordIndex + 1) % lofiChords.length;
+    loFiLoopTimer = setTimeout(scheduleLoFiStep, 2100);
+  }
+
+  function startLoFiMusic() {
+    initAudio();
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    if (!isMusicPlaying) {
+      isMusicPlaying = true;
+      musicToggle.innerText = "❚❚";
+      scheduleLoFiStep();
+    }
+  }
+
+  function pauseLoFiMusic() {
+    isMusicPlaying = false;
+    musicToggle.innerText = "▶";
+    clearTimeout(loFiLoopTimer);
+  }
+
+  musicToggle.onclick = () => {
+    if (isMusicPlaying) {
+      pauseLoFiMusic();
+    } else {
+      startLoFiMusic();
+    }
+  };
+
+  volumeCtrl.oninput = (e) => {
+    if (masterGain) {
+      masterGain.gain.value = parseFloat(e.target.value);
+    }
+  };
+
+  /* ============================================================
+     2. Quiz Question Bank (20 Questions)
+     ============================================================ */
+  const questions = [
+    // --- Multiple Choice: Comparison (6 items) ---
+    {
+      type: "mc",
+      category: "comparison",
+      sentence: "An elephant is ___ than a lion.",
+      options: ["bigger", "biggest", "more big", "big"],
+      answer: "bigger"
+    },
+    {
+      type: "mc",
+      category: "comparison",
+      sentence: "Mount Everest is the ___ mountain in the world.",
+      options: ["higher", "highest", "most high", "more high"],
+      answer: "highest"
+    },
+    {
+      type: "mc",
+      category: "comparison",
+      sentence: "This puzzle is ___ than the one we did yesterday.",
+      options: ["difficult", "difficulter", "more difficult", "most difficult"],
+      answer: "more difficult"
+    },
+    {
+      type: "mc",
+      category: "comparison",
+      sentence: "That was the ___ movie I have ever seen.",
+      options: ["bad", "worse", "worst", "baddest"],
+      answer: "worst"
+    },
+    {
+      type: "mc",
+      category: "comparison",
+      sentence: "Travelling by plane is ___ than going by train.",
+      options: ["faster", "fastest", "more fast", "most fast"],
+      answer: "faster"
+    },
+    {
+      type: "mc",
+      category: "comparison",
+      sentence: "She is the ___ student in our class.",
+      options: ["smart", "smarter", "smartest", "most smart"],
+      answer: "smartest"
+    },
+
+    // --- Multiple Choice: Past Simple (6 items) ---
+    {
+      type: "mc",
+      category: "past_simple",
+      sentence: "Exhausted from the long hike, he ___ down under the shade and slept soundly.",
+      options: ["lay", "laid", "lied", "lain"],
+      answer: "lay"
+    },
+    {
+      type: "mc",
+      category: "past_simple",
+      sentence: "Why ___ you contact the admissions office yesterday when the deadline was approaching?",
+      options: ["didn't", "weren't", "hadn't", "haven't"],
+      answer: "didn't"
+    },
+    {
+      type: "mc",
+      category: "past_simple",
+      sentence: "A large number of rare artifacts ___ stolen from the museum last month.",
+      options: ["were", "was", "are", "have been"],
+      answer: "were"
+    },
+    {
+      type: "mc",
+      category: "past_simple",
+      sentence: "The newly launched sports car ___ him a fortune two years ago.",
+      options: ["cost", "costed", "was costing", "had costed"],
+      answer: "cost"
+    },
+    {
+      type: "mc",
+      category: "past_simple",
+      sentence: "The committee ___ the strict policy despite numerous student protests last term.",
+      options: ["enacted", "enact", "has enacted", "was enacted"],
+      answer: "enacted"
+    },
+    {
+      type: "mc",
+      category: "past_simple",
+      sentence: "It was high time the municipal authorities ___ action against air pollution.",
+      options: ["took", "take", "taken", "had taken"],
+      answer: "took"
+    },
+
+    // --- Simplified Sentence Builder: Comparison (4 items) ---
+    {
+      type: "reorder",
+      category: "comparison",
+      prompt: "Arrange the words to form a comparative sentence:",
+      targetSentence: "A plane is faster than a train",
+      words: ["faster", "than", "A", "train", "plane", "is", "a"]
+    },
+    {
+      type: "reorder",
+      category: "comparison",
+      prompt: "Arrange the words to form a superlative sentence:",
+      targetSentence: "She is the smartest student here",
+      words: ["the", "student", "here", "smartest", "She", "is"]
+    },
+    {
+      type: "reorder",
+      category: "comparison",
+      prompt: "Arrange the words to form a comparative sentence:",
+      targetSentence: "This exam is more difficult today",
+      words: ["more", "is", "exam", "today", "difficult", "This"]
+    },
+    {
+      type: "reorder",
+      category: "comparison",
+      prompt: "Arrange the words to form a superlative sentence:",
+      targetSentence: "It was the best day ever",
+      words: ["the", "day", "was", "best", "It", "ever"]
+    },
+
+    // --- Simplified Sentence Builder: Past Simple (4 items) ---
+    {
+      type: "reorder",
+      category: "past_simple",
+      prompt: "Arrange the words to form a past simple question:",
+      targetSentence: "What did you see yesterday",
+      words: ["see", "What", "did", "yesterday", "you"]
+    },
+    {
+      type: "reorder",
+      category: "past_simple",
+      prompt: "Arrange the words to form a past negative sentence:",
+      targetSentence: "We did not go to school",
+      words: ["did", "go", "We", "school", "not", "to"]
+    },
+    {
+      type: "reorder",
+      category: "past_simple",
+      prompt: "Arrange the words to form an affirmative past sentence:",
+      targetSentence: "She bought a new car yesterday",
+      words: ["bought", "yesterday", "new", "car", "a", "She"]
+    },
+    {
+      type: "reorder",
+      category: "past_simple",
+      prompt: "Arrange the words to form an affirmative past sentence:",
+      targetSentence: "They played football last night",
+      words: ["last", "football", "played", "night", "They"]
+    }
+  ];
+
+  let currentIndex = 0;
+  let score = 0;
+  let isAnswerChecked = false;
+
+  let selectedOption = null;
+  let selectedBtn = null;
+  let userArrangedWords = [];
+
+  let wrongCategories = {
+    comparison: 0,
+    past_simple: 0
+  };
+
+  const introContainer = document.getElementById("intro-container");
+  const gamePlayArea = document.getElementById("game-play-area");
+  const cardEl = document.getElementById("game-card");
+  const promptTextEl = document.getElementById("prompt-text");
+  const sentenceEl = document.getElementById("sentence-text");
+  const optionsEl = document.getElementById("options-container");
+  const builderContainer = document.getElementById("builder-container");
+  const builderTargetBox = document.getElementById("builder-target-box");
+  const builderWordBank = document.getElementById("builder-word-bank");
+  const submitBtn = document.getElementById("submit-btn");
+  const feedbackEl = document.getElementById("feedback");
+  const progressEl = document.getElementById("progress");
+  const quizContainer = document.getElementById("quiz-container");
+  const resultContainer = document.getElementById("result-container");
+  const finalScoreEl = document.getElementById("final-score");
+  const gradeBadgeEl = document.getElementById("grade-badge");
+  const adviceBoxEl = document.getElementById("advice-box");
+
+  function startGame() {
+    startLoFiMusic();
+    introContainer.style.display = "none";
+    gamePlayArea.style.display = "block";
+    loadQuestion();
+  }
+
+  function loadQuestion() {
+    isAnswerChecked = false;
+    feedbackEl.style.display = "none";
+    feedbackEl.className = "feedback-box";
+    cardEl.classList.remove("card-bounce", "card-shake");
+    submitBtn.innerText = "Check Answer";
+    submitBtn.disabled = true;
+
+    const currentData = questions[currentIndex];
+
+    if (currentData.type === "mc") {
+      builderContainer.style.display = "none";
+      optionsEl.style.display = "grid";
+      promptTextEl.innerText = "Choose the correct option to fill in the blank:";
+      
+      const parts = currentData.sentence.split("___");
+      sentenceEl.innerHTML = `${parts[0]}<span class="blank" id="blank-space">...</span>${parts[1] || ""}`;
+
+      selectedOption = null;
+      selectedBtn = null;
+      optionsEl.innerHTML = "";
+      currentData.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerText = opt;
+        btn.onclick = () => selectChoice(opt, btn);
+        optionsEl.appendChild(btn);
+      });
+    } else {
+      optionsEl.style.display = "none";
+      builderContainer.style.display = "block";
+      promptTextEl.innerText = "Arrange the sentence:";
+      sentenceEl.innerText = currentData.prompt;
+
+      userArrangedWords = [];
+      builderTargetBox.innerHTML = "";
+      builderWordBank.innerHTML = "";
+
+      const shuffled = [...currentData.words].sort(() => Math.random() - 0.5);
+      shuffled.forEach((word, idx) => {
+        const token = document.createElement("div");
+        token.className = "word-token";
+        token.innerText = word;
+        token.dataset.wordId = `${word}-${idx}`;
+
+        token.onclick = () => {
+          if (isAnswerChecked) return;
+          addWordToTarget(word, token);
+        };
+        builderWordBank.appendChild(token);
+      });
+    }
+
+    const progressPct = (currentIndex / questions.length) * 100;
+    progressEl.style.width = `${progressPct}%`;
+  }
+
+  function selectChoice(option, clickedBtn) {
+    if (isAnswerChecked) return;
+
+    selectedOption = option;
+    selectedBtn = clickedBtn;
+    document.querySelectorAll(".option-btn").forEach(btn => btn.classList.remove("selected"));
+    clickedBtn.classList.add("selected");
+    
+    document.getElementById("blank-space").innerText = option;
+    submitBtn.disabled = false;
+  }
+
+  function addWordToTarget(word, sourceToken) {
+    sourceToken.classList.add("disabled");
+
+    const targetToken = document.createElement("div");
+    targetToken.className = "word-token in-target";
+    targetToken.innerText = word;
+    targetToken.dataset.originId = sourceToken.dataset.wordId;
+
+    targetToken.onclick = () => {
+      if (isAnswerChecked) return;
+      sourceToken.classList.remove("disabled");
+      builderTargetBox.removeChild(targetToken);
+      userArrangedWords = userArrangedWords.filter(item => item.token !== targetToken);
+      submitBtn.disabled = userArrangedWords.length === 0;
+    };
+
+    builderTargetBox.appendChild(targetToken);
+    userArrangedWords.push({ word: word, token: targetToken });
+    submitBtn.disabled = false;
+  }
+
+  submitBtn.onclick = () => {
+    if (!isAnswerChecked) {
+      isAnswerChecked = true;
+      const currentData = questions[currentIndex];
+      feedbackEl.style.display = "block";
+
+      let isCorrect = false;
+
+      if (currentData.type === "mc") {
+        if (selectedOption === currentData.answer) {
+          isCorrect = true;
+          selectedBtn.classList.add("correct");
+          selectedBtn.innerText = `${selectedOption} ✓`;
+        } else {
+          selectedBtn.classList.add("wrong");
+          selectedBtn.innerText = `${selectedOption} ✗`;
+        }
+      } else {
+        const builtSentence = userArrangedWords.map(w => w.word).join(" ").trim();
+        if (builtSentence.toLowerCase() === currentData.targetSentence.toLowerCase()) {
+          isCorrect = true;
+        }
+      }
+
+      if (isCorrect) {
+        score++;
+        feedbackEl.className = "feedback-box feedback-correct";
+        feedbackEl.innerText = "Excellent! That is correct.";
+        cardEl.classList.add("card-bounce");
+      } else {
+        wrongCategories[currentData.category]++;
+        feedbackEl.className = "feedback-box feedback-wrong";
+        const answerText = currentData.type === "mc" ? currentData.answer : currentData.targetSentence;
+        feedbackEl.innerText = `Incorrect. The correct answer is: "${answerText}"`;
+        cardEl.classList.add("card-shake");
+      }
+
+      if (currentData.type === "mc") {
+        document.querySelectorAll(".option-btn").forEach(btn => btn.disabled = true);
+      }
+      submitBtn.innerText = "Continue";
+    } else {
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+  };
+
+  function showResults() {
+    progressEl.style.width = "100%";
+    quizContainer.style.display = "none";
+    resultContainer.style.display = "block";
+    finalScoreEl.innerText = `Score: ${score} / ${questions.length}`;
+
+    let gradeText = "";
+    let badgeClass = "";
+    if (score >= 18) {
+      gradeText = "🌟 Proficiency: Excellent (Mastery)";
+      badgeClass = "badge-excellent";
+    } else if (score >= 14) {
+      gradeText = "👍 Proficiency: Good (Competent)";
+      badgeClass = "badge-good";
+    } else if (score >= 10) {
+      gradeText = "⚠️ Proficiency: Fair (Developing)";
+      badgeClass = "badge-fair";
+    } else {
+      gradeText = "❗ Proficiency: Needs Improvement";
+      badgeClass = "badge-improve";
+    }
+    gradeBadgeEl.className = `badge-level ${badgeClass}`;
+    gradeBadgeEl.innerText = gradeText;
+
+    let adviceHtml = `<h4>💡 Recommendations for Improvement:</h4>`;
+    if (score === questions.length) {
+      adviceHtml += `<p style="margin:0;">Outstanding performance! You have mastered both Comparative/Superlative constructs and Past Simple syntax.</p>`;
+    } else {
+      adviceHtml += `<ul style="margin: 6px 0 0 18px; padding: 0;">`;
+      if (wrongCategories.comparison > 0) {
+        adviceHtml += `<li><b>Comparatives & Superlatives (${wrongCategories.comparison} error/s):</b> Review comparative word order with <code>than</code>, superlative markers with <code>the most / -est</code>, and irregular adjective changes.</li>`;
+      }
+      if (wrongCategories.past_simple > 0) {
+        adviceHtml += `<li><b>Past Simple Tense (${wrongCategories.past_simple} error/s):</b> Review question structures (<code>did + Subject + V.1</code>), negative forms (<code>did not + V.1</code>), and irregular past verbs.</li>`;
+      }
+      if (score < 10) {
+        adviceHtml += `<li style="color:#b91c1c;"><b>Notice:</b> Please revisit the grammar summaries on the home screen before trying again.</li>`;
+      }
+      adviceHtml += `</ul>`;
+    }
+    adviceBoxEl.innerHTML = adviceHtml;
+  }
+
+  function restartGame() {
+    currentIndex = 0;
+    score = 0;
+    wrongCategories = { comparison: 0, past_simple: 0 };
+    resultContainer.style.display = "none";
+    quizContainer.style.display = "block";
+    introContainer.style.display = "block";
+    gamePlayArea.style.display = "none";
+  }
+</script>
+</body>
+</html>
