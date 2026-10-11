@@ -1,432 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>English Grammar Quiz: Comparison & Past Simple</title>
-  <style>
-    /* ============================================================
-       1. Custom Glowing Blue Cursor (Single Style)
-       ============================================================ */
-    *, html, body, button, input, select, a, [role="button"], .option-btn, .action-btn, .music-btn, .volume-slider, .word-token {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 3 L11 23 L15 15 L23 11 Z' fill='%230284c7' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round' filter='drop-shadow(0 0 4px %2338bdf8)'/%3E%3C/svg%3E"), auto !important;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Grammar Quiz: Comparison & Past Simple</title>
+<style>
+*, html, body, button, input, select, a, [role="button"], .option-btn, .action-btn, .music-btn, .volume-slider, .word-token, .mode-card {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 3 L11 23 L15 15 L23 11 Z' fill='%230284c7' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round' filter='drop-shadow(0 0 4px %2338bdf8)'/%3E%3C/svg%3E"), auto !important;
+}
+body { margin:0; padding:16px; min-height:100vh; display:flex; justify-content:center; align-items:center; position:relative; overflow-x:hidden; background-color:#0b1e42; }
+.bg-image { position:fixed; top:-5%; left:-5%; width:110%; height:110%; background:url('https://img.freepik.com/premium-photo/abstract-liquid-blue-silk-background-wavy-fabric-texture_875833-316.jpg') center/cover no-repeat; z-index:1; animation:waveFlow 18s ease-in-out infinite alternate; pointer-events:none; }
+@keyframes waveFlow { 0%{transform:scale(1) translate(0,0)} 50%{transform:scale(1.05) translate(-1%,-1.5%)} 100%{transform:scale(1.03) translate(1%,1%)} }
+.bg-overlay { position:fixed; inset:0; background:rgba(7,24,60,.45); z-index:1; pointer-events:none; }
 
-    body {
-      margin: 0;
-      padding: 16px;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      overflow-x: hidden;
-      background-color: #0b1e42;
-    }
+.music-widget { position:fixed; top:18px; right:18px; z-index:10; background:rgba(11,30,66,.85); border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(10px); padding:8px 16px; border-radius:30px; display:flex; align-items:center; gap:10px; color:#fff; font-size:13px; font-weight:600; box-shadow:0 4px 20px rgba(0,0,0,.35); }
+.music-btn { background:#0284c7; border:none; color:#fff; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:14px; transition:background .2s, transform .1s; }
+.music-btn:hover { background:#0369a1; transform:scale(1.06); }
+.volume-slider { accent-color:#38bdf8; width:75px; }
 
-    /* Animated Liquid Silk Background */
-    .bg-image {
-      position: fixed;
-      top: -5%;
-      left: -5%;
-      width: 110%;
-      height: 110%;
-      background: url('https://img.freepik.com/premium-photo/abstract-liquid-blue-silk-background-wavy-fabric-texture_875833-316.jpg') center/cover no-repeat;
-      z-index: 1;
-      animation: waveFlow 18s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
+.game-card { background:rgba(255,255,255,.94); backdrop-filter:blur(14px); border:1.5px solid rgba(255,255,255,.6); border-radius:24px; max-width:580px; width:100%; padding:28px; box-shadow:0 20px 45px rgba(3,15,43,.5); text-align:center; position:relative; z-index:2; margin-top:50px; }
+.card-bounce { animation:bounce .4s ease; }
+.card-shake { animation:shake .4s ease-in-out; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+@keyframes bounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
 
-    @keyframes waveFlow {
-      0% { transform: scale(1) translate(0, 0); }
-      50% { transform: scale(1.05) translate(-1%, -1.5%); }
-      100% { transform: scale(1.03) translate(1%, 1%); }
-    }
+.intro-title { color:#0c4a6e; margin:0 0 8px; font-size:24px; font-weight:700; }
+.intro-desc { color:#475569; font-size:14px; margin-bottom:16px; }
+.grammar-summary-box { background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:16px; padding:16px; margin-bottom:20px; text-align:left; font-size:14px; line-height:1.6; color:#1e293b; max-height:260px; overflow-y:auto; }
+.grammar-summary-box h3 { margin:12px 0 6px; font-size:16px; color:#0284c7; }
+.grammar-summary-box h3:first-child { margin-top:0; }
+.grammar-summary-box ul { margin:4px 0 10px 18px; padding:0; }
+.grammar-summary-box code { background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px; font-weight:600; }
 
-    .bg-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(7, 24, 60, 0.45);
-      z-index: 1;
-      pointer-events: none;
-    }
+/* Mode selection */
+.overall { text-align:left; font-size:13px; font-weight:700; color:#475569; margin-bottom:6px; display:flex; justify-content:space-between; }
+.mode-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:6px; }
+.mode-card { background:#fff; border:2px solid #e2e8f0; border-bottom:4px solid #cbd5e1; border-radius:16px; padding:16px 12px; text-align:center; transition:transform .1s, border-color .15s; width:100%; }
+.mode-card:hover { border-color:#38bdf8; transform:translateY(-2px); }
+.mode-card.done { border-color:#86efac; background:#f0fdf4; }
+.mode-icon { font-size:30px; }
+.mode-name { font-size:17px; font-weight:700; color:#0c4a6e; margin:4px 0 2px; }
+.mode-sub { font-size:12px; color:#64748b; margin-bottom:10px; }
+.mode-bar { height:8px; background:#e2e8f0; border-radius:20px; overflow:hidden; }
+.mode-bar > div { height:100%; background:#22c55e; width:0%; transition:width .4s; }
+.mode-status { font-size:12px; font-weight:700; color:#475569; margin-top:6px; }
 
-    /* BGM Controls */
-    .music-widget {
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      z-index: 10;
-      background: rgba(11, 30, 66, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      padding: 8px 16px;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-    }
-    .music-btn {
-      background: #0284c7;
-      border: none;
-      color: white;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      transition: background 0.2s ease, transform 0.1s ease;
-    }
-    .music-btn:hover {
-      background: #0369a1;
-      transform: scale(1.06);
-    }
-    .volume-slider {
-      accent-color: #38bdf8;
-      width: 75px;
-    }
+.progress-bar { height:10px; background:#e2e8f0; border-radius:20px; overflow:hidden; margin-bottom:8px; }
+.progress-fill { height:100%; background:#0284c7; width:0%; transition:width .3s; }
+.top-row { display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:700; color:#64748b; margin-bottom:12px; }
+.back-link { background:none; border:none; color:#0284c7; font-size:13px; font-weight:700; padding:2px 4px; }
+.prompt-text { color:#64748b; font-size:14px; font-weight:600; margin-bottom:8px; }
+.sentence { font-size:20px; font-weight:600; color:#0f172a; margin-bottom:20px; line-height:1.5; }
+.blank { display:inline-block; min-width:90px; border-bottom:3px solid #0284c7; color:#0284c7; padding:0 6px; }
 
-    /* Card Container */
-    .game-card {
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(255, 255, 255, 0.6);
-      border-radius: 24px;
-      max-width: 580px;
-      width: 100%;
-      padding: 28px;
-      box-shadow: 0 20px 45px rgba(3, 15, 43, 0.5);
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      transition: transform 0.2s ease;
-    }
+.options-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+.option-btn { background:#fff; border:2px solid #e2e8f0; border-bottom:4px solid #cbd5e1; border-radius:14px; padding:14px; font-size:17px; font-weight:600; color:#334155; transition:transform .1s, border-color .1s, background-color .15s; }
+.option-btn:hover:not(:disabled) { background:#f8fafc; }
+.option-btn:active:not(:disabled) { transform:translateY(2px); border-bottom-width:2px; }
+.option-btn.selected { border-color:#38bdf8; background:#f0f9ff; color:#0284c7; }
+.option-btn.correct { border-color:#22c55e !important; background:#dcfce7 !important; color:#15803d !important; border-bottom-color:#16a34a !important; }
+.option-btn.wrong { border-color:#ef4444 !important; background:#fee2e2 !important; color:#b91c1c !important; border-bottom-color:#dc2626 !important; }
 
-    .card-bounce {
-      animation: bounce 0.4s ease;
-    }
-    .card-shake {
-      animation: shake 0.4s ease-in-out;
-    }
+.sentence-builder-area { margin-bottom:20px; }
+.builder-target-box { min-height:54px; border:1.5px dashed #38bdf8; border-radius:28px; background:rgba(240,249,255,.7); padding:6px 14px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:center; margin-bottom:14px; }
+.builder-word-bank { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; min-height:48px; padding:2px; }
+.word-token { background:#fff; border:1.5px solid #cbd5e1; border-bottom:3px solid #94a3b8; padding:7px 15px; border-radius:20px; font-size:15px; font-weight:600; color:#1e293b; user-select:none; transition:all .15s; }
+.word-token:hover:not(.disabled) { background:#f8fafc; border-color:#38bdf8; transform:translateY(-1px); }
+.word-token:active:not(.disabled) { transform:translateY(2px); border-bottom-width:1.5px; }
+.word-token.in-target { background:#0284c7; border-color:#0284c7; border-bottom-color:#0369a1; color:#fff; box-shadow:0 2px 6px rgba(2,132,199,.25); }
+.word-token.disabled { opacity:.2; background:#f1f5f9; border-color:#e2e8f0; border-bottom:1.5px solid #cbd5e1; pointer-events:none; }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-8px); }
-      40%, 80% { transform: translateX(8px); }
-    }
-    @keyframes bounce {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
+.footer-action { margin-top:10px; }
+.action-btn { width:100%; padding:14px; font-size:16px; font-weight:700; border-radius:14px; border:none; border-bottom:4px solid #0369a1; background:#0284c7; color:#fff; transition:background .15s; }
+.action-btn:hover:not(:disabled) { background:#0369a1; }
+.action-btn:disabled { background:#e2e8f0; border-bottom:4px solid #cbd5e1; color:#94a3b8; }
+.action-btn.secondary { background:#fff; color:#0284c7; border:2px solid #0284c7; border-bottom:4px solid #0284c7; margin-top:10px; }
+.action-btn.secondary:hover:not(:disabled) { background:#f0f9ff; }
+.feedback-box { margin-top:16px; padding:12px; border-radius:12px; font-weight:600; font-size:15px; display:none; }
+.feedback-correct { background:#dcfce7; color:#15803d; border:1px solid #86efac; }
+.feedback-wrong { background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5; }
 
-    .intro-title {
-      color: #0c4a6e;
-      margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 24px;
-      font-weight: 700;
-    }
-    .intro-desc {
-      color: #475569;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-    .grammar-summary-box {
-      background: #f0f9ff;
-      border: 1.5px solid #bae6fd;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 24px;
-      text-align: left;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #1e293b;
-      max-height: 380px;
-      overflow-y: auto;
-    }
-    .grammar-summary-box h3 {
-      margin: 12px 0 6px 0;
-      font-size: 16px;
-      color: #0284c7;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .grammar-summary-box h3:first-child {
-      margin-top: 0;
-    }
-    .grammar-summary-box ul {
-      margin: 4px 0 10px 18px;
-      padding: 0;
-    }
-    .grammar-summary-box code {
-      background: #e0f2fe;
-      color: #0369a1;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
+.badge-level { display:inline-block; padding:6px 18px; border-radius:20px; font-size:16px; font-weight:bold; margin:10px 0 16px; }
+.badge-excellent { background:#dcfce7; color:#15803d; border:1px solid #86efac; }
+.badge-good { background:#e0f2fe; color:#0284c7; border:1px solid #7dd3fc; }
+.badge-fair { background:#fef9c3; color:#a16207; border:1px solid #fde047; }
+.badge-improve { background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5; }
+.advice-card { background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:16px; padding:16px; margin:16px 0; text-align:left; font-size:14px; line-height:1.6; color:#334155; }
+.advice-card h4 { margin:0 0 8px; font-size:15px; }
+.creator-card { background:#f8fafc; border:1.5px dashed #cbd5e1; border-radius:14px; padding:14px 16px; margin:18px 0 22px; text-align:center; }
+.creator-label { font-size:13px; font-weight:700; color:#64748b; margin-bottom:6px; letter-spacing:.5px; }
+.creator-info { font-size:16px; font-weight:600; color:#1e293b; line-height:1.5; }
 
-    .progress-bar {
-      height: 10px;
-      background: #e2e8f0;
-      border-radius: 20px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-    .progress-fill {
-      height: 100%;
-      background: #0284c7;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-    .prompt-text {
-      color: #64748b;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .sentence {
-      font-size: 20px;
-      font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .blank {
-      display: inline-block;
-      min-width: 90px;
-      border-bottom: 3px solid #0284c7;
-      color: #0284c7;
-      padding: 0 6px;
-    }
+/* ===== Vibrant Theme (violet · pink · orange · cyan) ===== */
+:root{--v:#2563eb;--p:#0ea5e9;--o:#14b8a6;--c:#06b6d4}
+*, html, body, button, input, select, a, [role="button"], .option-btn, .action-btn, .music-btn, .volume-slider, .word-token, .mode-card {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 3 L11 23 L15 15 L23 11 Z' fill='%230284c7' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round' filter='drop-shadow(0 0 4px %2338bdf8)'/%3E%3C/svg%3E"), auto !important;
+}
+body{background:linear-gradient(135deg,#1e40af,#0284c7,#0891b2,#14b8a6,#06b6d4);background-size:400% 400%;animation:bgShift 16s ease infinite}
+@keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.bg-image{opacity:.28;mix-blend-mode:soft-light}
+.bg-overlay{background:radial-gradient(circle at 15% 15%,rgba(125,211,252,.35),transparent 45%),radial-gradient(circle at 85% 85%,rgba(45,212,191,.4),transparent 45%)}
+.music-widget{background:rgba(12,74,110,.88);border-color:rgba(255,255,255,.35)}
+.music-btn{background:linear-gradient(135deg,var(--p),var(--o))}
+.music-btn:hover{background:linear-gradient(135deg,var(--o),var(--p))}
+.volume-slider{accent-color:#f472b6}
+.game-card{background:rgba(255,255,255,.96);border:2px solid rgba(255,255,255,.85);box-shadow:0 22px 55px rgba(12,74,110,.5)}
+.game-card::before{content:"";position:absolute;top:0;left:28px;right:28px;height:6px;border-radius:0 0 8px 8px;background:linear-gradient(90deg,var(--v),var(--p),var(--o),var(--c))}
+.intro-title{background:linear-gradient(90deg,var(--v),var(--p),var(--o));-webkit-background-clip:text;background-clip:text;color:transparent;font-size:27px}
+.intro-desc{color:#0369a1}
+.grammar-summary-box{background:linear-gradient(135deg,#f0f9ff,#f0f9ff);border-color:#bae6fd}
+.grammar-summary-box h3{color:#0284c7}
+.grammar-summary-box code{background:#e0f2fe;color:#0369a1}
+.overall{color:#075985}
+.progress-bar{background:#e0f2fe}
+.progress-fill{background:linear-gradient(90deg,var(--v),var(--p),var(--o))}
+.mode-card{border-width:2px}
+.mode-card:nth-child(1){background:linear-gradient(160deg,#f0fdfa,#dbeafe);border-color:#5eead4;border-bottom-color:#14b8a6}
+.mode-card:nth-child(2){background:linear-gradient(160deg,#ecfeff,#e0e7ff);border-color:#67e8f9;border-bottom-color:#06b6d4}
+.mode-card:nth-child(1) .mode-name{color:#0369a1}
+.mode-card:nth-child(2) .mode-name{color:#0e7490}
+.mode-card:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:0 10px 22px rgba(37,99,235,.25)}
+.mode-card.done{border-color:#4ade80;border-bottom-color:#16a34a}
+.mode-icon{display:inline-block;font-size:36px;animation:floaty 2.4s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.mode-sub,.mode-status{color:#075985}
+.mode-bar{background:rgba(255,255,255,.8)}
+.mode-bar>div{background:linear-gradient(90deg,#22c55e,#06b6d4)}
+.top-row{color:#0369a1}
+.back-link{color:var(--v)}
+.prompt-text{color:#4338ca}
+.sentence{color:#1e1b4b}
+.blank{border-bottom-color:var(--p);color:#0284c7}
+.option-btn:nth-child(1){border-color:#7dd3fc;border-bottom-color:#38bdf8;background:#f0f9ff}
+.option-btn:nth-child(2){border-color:#5eead4;border-bottom-color:#2dd4bf;background:#f0fdfa}
+.option-btn:nth-child(3){border-color:#a5b4fc;border-bottom-color:#818cf8;background:#eef2ff}
+.option-btn:nth-child(4){border-color:#67e8f9;border-bottom-color:#22d3ee;background:#ecfeff}
+.option-btn:hover:not(:disabled){filter:brightness(.97);transform:translateY(-2px)}
+.option-btn.selected{border-color:var(--v);border-bottom-color:#1e3a8a;background:#e0e7ff;color:#1d4ed8;transform:scale(1.03)}
+.builder-target-box{border-color:#38bdf8;background:rgba(240,249,255,.85)}
+.builder-word-bank .word-token:not(.disabled):nth-child(4n+1){background:#f0f9ff;border-color:#7dd3fc;border-bottom-color:#38bdf8}
+.builder-word-bank .word-token:not(.disabled):nth-child(4n+2){background:#f0fdfa;border-color:#5eead4;border-bottom-color:#2dd4bf}
+.builder-word-bank .word-token:not(.disabled):nth-child(4n+3){background:#eef2ff;border-color:#a5b4fc;border-bottom-color:#818cf8}
+.builder-word-bank .word-token:not(.disabled):nth-child(4n){background:#ecfeff;border-color:#67e8f9;border-bottom-color:#22d3ee}
+.word-token:hover:not(.disabled){border-color:var(--p)}
+.word-token.in-target{background:linear-gradient(135deg,var(--v),var(--p));border-color:var(--v);border-bottom-color:#1d4ed8;box-shadow:0 3px 8px rgba(37,99,235,.35)}
+.action-btn{background:linear-gradient(90deg,var(--v),var(--p));border-bottom-color:#1d4ed8}
+.action-btn:hover:not(:disabled){background:linear-gradient(90deg,#1d4ed8,#0284c7)}
+.action-btn.secondary{background:#fff;color:var(--v);border:2px solid var(--v);border-bottom:4px solid var(--v)}
+.action-btn.secondary:hover:not(:disabled){background:#ecfeff}
+.advice-card{background:#f0f9ff;border-color:#bfdbfe}
+.advice-card code{background:#e0f2fe;color:#0369a1;padding:1px 5px;border-radius:4px}
+.creator-card{background:linear-gradient(135deg,#f0f9ff,#ecfeff);border-color:#93c5fd}
+.creator-label{color:#4338ca}
 
-    /* Multiple Choice Grid */
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .option-btn {
-      background: #ffffff;
-      border: 2px solid #e2e8f0;
-      border-bottom: 4px solid #cbd5e1;
-      border-radius: 14px;
-      padding: 14px;
-      font-size: 17px;
-      font-weight: 600;
-      color: #334155;
-      transition: transform 0.1s, border-color 0.1s, background-color 0.15s;
-    }
-    .option-btn:hover:not(:disabled) {
-      background: #f8fafc;
-    }
-    .option-btn:active:not(:disabled) {
-      transform: translateY(2px);
-      border-bottom-width: 2px;
-    }
-    .option-btn.selected {
-      border-color: #38bdf8;
-      background: #f0f9ff;
-      color: #0284c7;
-    }
-    .option-btn.correct {
-      border-color: #22c55e !important;
-      background: #dcfce7 !important;
-      color: #15803d !important;
-      border-bottom-color: #16a34a !important;
-    }
-    .option-btn.wrong {
-      border-color: #ef4444 !important;
-      background: #fee2e2 !important;
-      color: #b91c1c !important;
-      border-bottom-color: #dc2626 !important;
-    }
-
-    /* ============================================================
-       ปรับปรุงกล่องเรียงประโยคให้โค้งมน สวยงาม ประหยัดพื้นที่
-       ============================================================ */
-    .sentence-builder-area {
-      margin-bottom: 20px;
-    }
-    .builder-target-box {
-      min-height: 54px;
-      border: 1.5px dashed #38bdf8;
-      border-radius: 28px;
-      background: rgba(240, 249, 255, 0.7);
-      padding: 6px 14px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      transition: all 0.2s ease;
-    }
-    .builder-word-bank {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      min-height: 48px;
-      padding: 2px;
-    }
-    .word-token {
-      background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-bottom: 3px solid #94a3b8;
-      padding: 7px 15px;
-      border-radius: 20px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #1e293b;
-      user-select: none;
-      transition: all 0.15s ease;
-    }
-    .word-token:hover:not(.disabled) {
-      background: #f8fafc;
-      border-color: #38bdf8;
-      transform: translateY(-1px);
-    }
-    .word-token:active:not(.disabled) {
-      transform: translateY(2px);
-      border-bottom-width: 1.5px;
-    }
-    .word-token.in-target {
-      background: #0284c7;
-      border-color: #0284c7;
-      border-bottom-color: #0369a1;
-      color: #ffffff;
-      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
-    }
-    .word-token.disabled {
-      opacity: 0.2;
-      background: #f1f5f9;
-      border-color: #e2e8f0;
-      border-bottom: 1.5px solid #cbd5e1;
-      pointer-events: none;
-    }
-
-    .footer-action {
-      margin-top: 10px;
-    }
-    .action-btn {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      border-radius: 14px;
-      border: none;
-      border-bottom: 4px solid #0369a1;
-      background: #0284c7;
-      color: white;
-      transition: background 0.15s ease;
-    }
-    .action-btn:hover:not(:disabled) {
-      background: #0369a1;
-    }
-    .action-btn:disabled {
-      background: #e2e8f0;
-      border-bottom: 4px solid #cbd5e1;
-      color: #94a3b8;
-    }
-    .feedback-box {
-      margin-top: 16px;
-      padding: 12px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 15px;
-      display: none;
-    }
-    .feedback-correct {
-      background: #dcfce7;
-      color: #15803d;
-      border: 1px solid #86efac;
-    }
-    .feedback-wrong {
-      background: #fee2e2;
-      color: #b91c1c;
-      border: 1px solid #fca5a5;
-    }
-
-    .badge-level {
-      display: inline-block;
-      padding: 6px 18px;
-      border-radius: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      margin: 10px 0 16px 0;
-    }
-    .badge-excellent { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
-    .badge-good { background: #e0f2fe; color: #0284c7; border: 1px solid #7dd3fc; }
-    .badge-fair { background: #fef9c3; color: #a16207; border: 1px solid #fde047; }
-    .badge-improve { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-
-    .advice-card {
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 16px;
-      margin: 16px 0;
-      text-align: left;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #334155;
-    }
-    .advice-card h4 {
-      margin: 0 0 8px 0;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .advice-card ul {
-      margin: 4px 0 0 18px;
-      padding: 0;
-    }
-
-    .creator-card {
-      background: #f8fafc;
-      border: 1.5px dashed #cbd5e1;
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin: 18px 0 22px 0;
-      text-align: center;
-    }
-    .creator-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: #64748b;
-      margin-bottom: 6px;
-      letter-spacing: 0.5px;
-    }
-    .creator-info {
-      font-size: 16px;
-      font-weight: 600;
-      color: #1e293b;
-      line-height: 1.5;
-    }
-  </style>
+/* ===== New games ===== */
+.mode-card:nth-child(3){background:linear-gradient(160deg,#f0fdf4,#e0f2fe);border-color:#86efac;border-bottom-color:#22c55e}
+.mode-card:nth-child(4){background:linear-gradient(160deg,#f0f9ff,#f0f9ff);border-color:#7dd3fc;border-bottom-color:#38bdf8}
+.mode-card:nth-child(3) .mode-name{color:#15803d}
+.mode-card:nth-child(4) .mode-name{color:#4338ca}
+.mode-card.done{border-color:#4ade80;border-bottom-color:#16a34a}
+.rush-btn{background:#fff;border:2px solid #e2e8f0;border-bottom:4px solid #cbd5e1;border-radius:14px;padding:16px;font-size:18px;font-weight:700;transition:transform .1s}
+.rush-btn:active{transform:translateY(2px);border-bottom-width:2px}
+.rush-btn.rush-true{background:#dcfce7;border-color:#86efac;border-bottom-color:#22c55e;color:#15803d}
+.rush-btn.rush-false{background:#fee2e2;border-color:#fca5a5;border-bottom-color:#ef4444;color:#b91c1c}
+.rush-btn:hover{filter:brightness(.96)}
+.type-input{width:100%;padding:14px;font-size:22px;font-weight:600;text-align:center;border:2px solid #bae6fd;border-radius:14px;outline:none;color:#0f172a;background:#fff}
+.type-input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.2)}
+.type-input.t-correct{border-color:#22c55e;background:#dcfce7;color:#15803d}
+.type-input.t-wrong{border-color:#ef4444;background:#fee2e2;color:#b91c1c}
+.hint-btn{background:#e0f2fe;color:#0369a1;border:2px solid #7dd3fc;border-radius:12px;padding:6px 12px;font-weight:700;font-size:14px}
+.hint-btn:disabled{opacity:.5}
+.hint-text{color:#0369a1;font-size:13px;font-weight:600}
+</style>
 </head>
 <body>
-
-<!-- Liquid Wave Background -->
 <div class="bg-image"></div>
 <div class="bg-overlay"></div>
 
-<!-- Background Music & Controls -->
 <div class="music-widget">
   <span>🎧 Lo-fi BGM</span>
   <button class="music-btn" id="music-toggle" title="Play / Pause">▶</button>
@@ -435,10 +187,10 @@
 
 <div class="game-card" id="game-card">
 
-  <!-- 1. Quick Grammar Review -->
+  <!-- 1. Home: Grammar review + mode selection -->
   <div id="intro-container">
     <h2 class="intro-title">Quick Grammar Review</h2>
-    <div class="intro-desc">Review the key concepts below before taking the quiz.</div>
+    <div class="intro-desc">Review the key concepts, then choose a mode to play.</div>
 
     <div class="grammar-summary-box">
       <h3>📌 1. Comparative & Superlative</h3>
@@ -453,7 +205,6 @@
         </li>
         <li><b>Irregular forms:</b> bad → worse → <code>the worst</code>, good → better → <code>the best</code></li>
       </ul>
-
       <h3>📌 2. Past Simple Tense</h3>
       <ul>
         <li><b>Affirmative:</b> <code>Subject + V.2</code>
@@ -471,28 +222,43 @@
       </ul>
     </div>
 
-    <button class="action-btn" onclick="startGame()">Start Quiz</button>
+    <div class="overall"><span>Overall Progress</span><span id="overall-text">0 / 2 modes completed</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="overall-fill"></div></div>
+    <div class="mode-grid" id="mode-grid" style="margin-top:14px;"></div>
   </div>
 
   <!-- 2. Quiz Play Area -->
-  <div id="game-play-area" style="display: none;">
-    <div class="progress-bar">
-      <div class="progress-fill" id="progress"></div>
+  <div id="game-play-area" style="display:none;">
+    <div class="top-row">
+      <button class="back-link" onclick="showMenu()">← Menu</button>
+      <span id="mode-label"></span>
+      <span id="count-label"></span>
     </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
 
+    <div id="rush-area" style="display:none;">
+      <div class="prompt-text">Is this sentence grammatically correct?</div>
+      <div class="sentence" id="rush-sentence" style="min-height:64px;"></div>
+      <div class="options-grid">
+        <button class="rush-btn rush-true" onclick="answerRush(true)">✅ TRUE</button>
+        <button class="rush-btn rush-false" onclick="answerRush(false)">❌ FALSE</button>
+      </div>
+      <div class="feedback-box" id="rush-feedback"></div>
+    </div>
     <div id="quiz-container">
-      <div class="prompt-text" id="prompt-text">Choose the correct option:</div>
+      <div class="prompt-text" id="prompt-text"></div>
       <div class="sentence" id="sentence-text"></div>
-      
-      <!-- Multiple Choice Type -->
       <div class="options-grid" id="options-container"></div>
-      
-      <!-- Sentence Reorder Type (ดีไซน์ใหม่ โค้งมน ไม่กินพื้นที่) -->
-      <div class="sentence-builder-area" id="builder-container" style="display: none;">
+      <div class="sentence-builder-area" id="builder-container" style="display:none;">
         <div class="builder-target-box" id="builder-target-box"></div>
         <div class="builder-word-bank" id="builder-word-bank"></div>
       </div>
-
+      <div id="type-area" style="display:none;margin-bottom:16px;">
+        <input id="type-input" class="type-input" type="text" placeholder="Type your answer..." autocomplete="off" autocapitalize="off" spellcheck="false">
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;">
+          <button class="hint-btn" id="hint-btn">💡 Hint</button><span id="hint-text" class="hint-text"></span>
+        </div>
+      </div>
       <div class="footer-action">
         <button class="action-btn" id="submit-btn" disabled>Check Answer</button>
       </div>
@@ -500,14 +266,12 @@
     </div>
   </div>
 
-  <!-- 3. Performance & Results Area -->
-  <div id="result-container" style="display: none;">
-    <h2>Quiz Results</h2>
-    <p id="final-score" style="font-size: 24px; font-weight: bold; color: #0c4a6e; margin: 8px 0;"></p>
-    
+  <!-- 3. Results -->
+  <div id="result-container" style="display:none;">
+    <h2 id="result-title">Quiz Results</h2>
+    <p id="final-score" style="font-size:24px;font-weight:bold;color:#0c4a6e;margin:8px 0;"></p>
     <div id="grade-badge" class="badge-level"></div>
     <div id="advice-box" class="advice-card"></div>
-
     <div class="creator-card">
       <div class="creator-label">TEAM MEMBERS</div>
       <div class="creator-info">
@@ -515,498 +279,439 @@
         นายพรรษา จักรแก้ว 1172 IE<br>
       </div>
     </div>
-
-    <button class="action-btn" onclick="restartGame()">Try Again</button>
+    <button class="action-btn" onclick="showMenu()">🏠 Back to Menu</button>
+    <button class="action-btn secondary" onclick="startMode(currentMode)">🔄 Try Again</button>
   </div>
-
 </div>
 
 <script>
-  /* ============================================================
-     1. Built-in Procedural Lo-fi Audio Engine (ไม่มีวันลิงก์เสีย)
-     ============================================================ */
-  let audioCtx = null;
-  let masterGain = null;
-  let isMusicPlaying = false;
-  let loFiLoopTimer = null;
-
-  const musicToggle = document.getElementById("music-toggle");
-  const volumeCtrl = document.getElementById("volume-ctrl");
-
-  // คอร์ดเปียโนแนว Lo-fi Chillhop (Fmaj7 -> Em7 -> Dm7 -> Cmaj7)
-  const lofiChords = [
-    [174.61, 220.00, 261.63, 329.63], // Fmaj7
-    [164.81, 196.00, 246.94, 293.66], // Em7
-    [146.83, 174.61, 220.00, 261.63], // Dm7
-    [130.81, 164.81, 196.00, 246.94]  // Cmaj7
-  ];
-
-  function initAudio() {
-    if (!audioCtx) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContextClass();
-      masterGain = audioCtx.createGain();
-      masterGain.gain.value = parseFloat(volumeCtrl.value);
-      masterGain.connect(audioCtx.destination);
-    }
+/* ===== 1. Lo-fi Audio Engine ===== */
+let audioCtx = null, masterGain = null, isMusicPlaying = false, loFiLoopTimer = null, chordIndex = 0;
+const musicToggle = document.getElementById("music-toggle");
+const volumeCtrl = document.getElementById("volume-ctrl");
+const lofiChords = [
+  [174.61, 220.00, 261.63, 329.63], [164.81, 196.00, 246.94, 293.66],
+  [146.83, 174.61, 220.00, 261.63], [130.81, 164.81, 196.00, 246.94]
+];
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = parseFloat(volumeCtrl.value);
+    masterGain.connect(audioCtx.destination);
   }
+}
+function playSoftTone(freq, time, duration) {
+  if (!audioCtx) return;
+  const osc = audioCtx.createOscillator(), gain = audioCtx.createGain(), filter = audioCtx.createBiquadFilter();
+  filter.type = "lowpass"; filter.frequency.value = 850;
+  osc.type = "sine"; osc.frequency.setValueAtTime(freq, time);
+  gain.gain.setValueAtTime(0, time);
+  gain.gain.linearRampToValueAtTime(0.08, time + 0.1);
+  gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+  osc.connect(filter); filter.connect(gain); gain.connect(masterGain);
+  osc.start(time); osc.stop(time + duration);
+}
+function scheduleLoFiStep() {
+  if (!isMusicPlaying || !audioCtx) return;
+  const now = audioCtx.currentTime;
+  lofiChords[chordIndex].forEach((f, i) => playSoftTone(f, now + i * 0.08, 2.2));
+  chordIndex = (chordIndex + 1) % lofiChords.length;
+  loFiLoopTimer = setTimeout(scheduleLoFiStep, 2100);
+}
+function startLoFiMusic() {
+  initAudio();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  if (!isMusicPlaying) { isMusicPlaying = true; musicToggle.innerText = "❚❚"; scheduleLoFiStep(); }
+}
+function pauseLoFiMusic() { isMusicPlaying = false; musicToggle.innerText = "▶"; clearTimeout(loFiLoopTimer); }
+musicToggle.onclick = () => isMusicPlaying ? pauseLoFiMusic() : startLoFiMusic();
+volumeCtrl.oninput = e => { if (masterGain) masterGain.gain.value = parseFloat(e.target.value); };
 
-  function playSoftTone(freq, time, duration) {
-    if (!audioCtx) return;
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    const filter = audioCtx.createBiquadFilter();
+/* ===== 2. Question Bank (20 Questions) ===== */
+const questions = [
+  { type:"mc", category:"comparison", sentence:"An elephant is ___ than a lion.", options:["bigger","biggest","more big","big"], answer:"bigger" },
+  { type:"mc", category:"comparison", sentence:"Mount Everest is the ___ mountain in the world.", options:["higher","highest","most high","more high"], answer:"highest" },
+  { type:"mc", category:"comparison", sentence:"This puzzle is ___ than the one we did yesterday.", options:["difficult","difficulter","more difficult","most difficult"], answer:"more difficult" },
+  { type:"mc", category:"comparison", sentence:"That was the ___ movie I have ever seen.", options:["bad","worse","worst","baddest"], answer:"worst" },
+  { type:"mc", category:"comparison", sentence:"Travelling by plane is ___ than going by train.", options:["faster","fastest","more fast","most fast"], answer:"faster" },
+  { type:"mc", category:"comparison", sentence:"She is the ___ student in our class.", options:["smart","smarter","smartest","most smart"], answer:"smartest" },
+  { type:"mc", category:"past_simple", sentence:"Exhausted from the long hike, he ___ down under the shade and slept soundly.", options:["lay","laid","lied","lain"], answer:"lay" },
+  { type:"mc", category:"past_simple", sentence:"Why ___ you contact the admissions office yesterday when the deadline was approaching?", options:["didn't","weren't","hadn't","haven't"], answer:"didn't" },
+  { type:"mc", category:"past_simple", sentence:"A large number of rare artifacts ___ stolen from the museum last month.", options:["were","was","are","have been"], answer:"were" },
+  { type:"mc", category:"past_simple", sentence:"The newly launched sports car ___ him a fortune two years ago.", options:["cost","costed","was costing","had costed"], answer:"cost" },
+  { type:"mc", category:"past_simple", sentence:"The committee ___ the strict policy despite numerous student protests last term.", options:["enacted","enact","has enacted","was enacted"], answer:"enacted" },
+  { type:"mc", category:"past_simple", sentence:"It was high time the municipal authorities ___ action against air pollution.", options:["took","take","taken","had taken"], answer:"took" },
 
-    // กรองเสียงสูงออกเพื่อความนุ่มละมุนสไตล์ Lo-fi
-    filter.type = "lowpass";
-    filter.frequency.value = 850;
+  { type:"reorder", category:"comparison", prompt:"Arrange the words to form a comparative sentence:", targetSentence:"A plane is faster than a train", words:["faster","than","A","train","plane","is","a"] },
+  { type:"reorder", category:"comparison", prompt:"Arrange the words to form a superlative sentence:", targetSentence:"She is the smartest student here", words:["the","student","here","smartest","She","is"] },
+  { type:"reorder", category:"comparison", prompt:"Arrange the words to form a comparative sentence:", targetSentence:"This exam is more difficult today", words:["more","is","exam","today","difficult","This"] },
+  { type:"reorder", category:"comparison", prompt:"Arrange the words to form a superlative sentence:", targetSentence:"It was the best day ever", words:["the","day","was","best","It","ever"] },
+  { type:"reorder", category:"past_simple", prompt:"Arrange the words to form a past simple question:", targetSentence:"What did you see yesterday", words:["see","What","did","yesterday","you"] },
+  { type:"reorder", category:"past_simple", prompt:"Arrange the words to form a past negative sentence:", targetSentence:"We did not go to school", words:["did","go","We","school","not","to"] },
+  { type:"reorder", category:"past_simple", prompt:"Arrange the words to form an affirmative past sentence:", targetSentence:"She bought a new car yesterday", words:["bought","yesterday","new","car","a","She"] },
+  { type:"reorder", category:"past_simple", prompt:"Arrange the words to form an affirmative past sentence:", targetSentence:"They played football last night", words:["last","football","played","night","They"] },
 
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(freq, time);
+  // Type It
+  { type:"type", category:"comparison", base:"good", form:"comparative", answers:["better"] },
+  { type:"type", category:"comparison", base:"bad", form:"superlative", answers:["worst","the worst"] },
+  { type:"type", category:"past_simple", base:"buy", form:"past simple", answers:["bought"] },
+  { type:"type", category:"past_simple", base:"go", form:"past simple", answers:["went"] },
+  { type:"type", category:"comparison", base:"big", form:"comparative", answers:["bigger"] },
+  { type:"type", category:"comparison", base:"expensive", form:"superlative", answers:["most expensive","the most expensive"] },
+  { type:"type", category:"past_simple", base:"take", form:"past simple", answers:["took"] },
+  { type:"type", category:"comparison", base:"far", form:"comparative", answers:["farther","further"] },
+  { type:"type", category:"past_simple", base:"write", form:"past simple", answers:["wrote"] },
+  { type:"type", category:"comparison", base:"beautiful", form:"comparative", answers:["more beautiful"] }
+];
 
-    gain.gain.setValueAtTime(0, time);
-    gain.gain.linearRampToValueAtTime(0.08, time + 0.1);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+// True/False Rush statements (t = is the sentence correct?)
+const rushItems = [
+  { s:"An elephant is bigger than a lion.", t:true, c:"comparison" },
+  { s:"Mount Everest is the highest mountain in the world.", t:true, c:"comparison" },
+  { s:"She went to school yesterday.", t:true, c:"past_simple" },
+  { s:"This is the worst movie I have ever seen.", t:true, c:"comparison" },
+  { s:"They didn't see the accident.", t:true, c:"past_simple" },
+  { s:"The car cost him a fortune.", t:true, c:"past_simple" },
+  { s:"Math is more difficult than English.", t:true, c:"comparison" },
+  { s:"Where did you buy that bag?", t:true, c:"past_simple" },
+  { s:"It was high time they took action.", t:true, c:"past_simple" },
+  { s:"A lot of artifacts were stolen last month.", t:true, c:"past_simple" },
+  { s:"He is the tallest boy in the class.", t:true, c:"comparison" },
+  { s:"I bought a new phone yesterday.", t:true, c:"past_simple" },
+  { s:"She is more smart than me.", t:false, c:"comparison" },
+  { s:"This is the goodest cake ever.", t:false, c:"comparison" },
+  { s:"He didn't went to the party.", t:false, c:"past_simple" },
+  { s:"I buyed a new bag last week.", t:false, c:"past_simple" },
+  { s:"Today is the most hot day of the year.", t:false, c:"comparison" },
+  { s:"Did you saw the movie last night?", t:false, c:"past_simple" },
+  { s:"My house is more big than yours.", t:false, c:"comparison" },
+  { s:"The artifacts was stolen last year.", t:false, c:"past_simple" },
+  { s:"She is the most beautifulest girl.", t:false, c:"comparison" },
+  { s:"He runned very fast yesterday.", t:false, c:"past_simple" },
+  { s:"This book is gooder than that one.", t:false, c:"comparison" },
+  { s:"They didn't took any photos.", t:false, c:"past_simple" }
+];
 
-    osc.connect(filter);
-    filter.connect(gain);
-    gain.connect(masterGain);
+/* ===== 3. Modes & Progress ===== */
+const modes = {
+  mc:      { icon:"✏️", name:"เติมคำ", sub:"Fill in the Blank" },
+  reorder: { icon:"🧩", name:"เรียงประโยค", sub:"Sentence Builder" },
+  rush:    { icon:"⚡", name:"ถูกหรือผิด", sub:"True/False Rush" },
+  type:    { icon:"⌨️", name:"พิมพ์คำตอบ", sub:"Type It" }
+};
+let progress = { mc:{done:false,best:0}, reorder:{done:false,best:0}, rush:{done:false,best:0}, type:{done:false,best:0} };
+try { const s = JSON.parse(localStorage.getItem("grammarQuizProgress")); if (s && s.mc && s.reorder) progress = Object.assign(progress, s); } catch (e) {}
+function saveProgress() { try { localStorage.setItem("grammarQuizProgress", JSON.stringify(progress)); } catch (e) {} }
+const totalOf = m => m === "rush" ? 0 : questions.filter(q => q.type === m).length;
 
-    osc.start(time);
-    osc.stop(time + duration);
-  }
+/* ===== 4. State & Elements ===== */
+let currentMode = null, qs = [], currentIndex = 0, score = 0, isAnswerChecked = false;
+let selectedOption = null, selectedBtn = null, userArrangedWords = [], hintUsed = false;
+let wrongCategories = { comparison:0, past_simple:0 };
 
-  let chordIndex = 0;
-  function scheduleLoFiStep() {
-    if (!isMusicPlaying || !audioCtx) return;
-    const now = audioCtx.currentTime;
-    const chord = lofiChords[chordIndex];
+const $ = id => document.getElementById(id);
+const introContainer = $("intro-container"), gamePlayArea = $("game-play-area"), cardEl = $("game-card");
+const promptTextEl = $("prompt-text"), sentenceEl = $("sentence-text"), optionsEl = $("options-container");
+const builderContainer = $("builder-container"), builderTargetBox = $("builder-target-box"), builderWordBank = $("builder-word-bank");
+const submitBtn = $("submit-btn"), feedbackEl = $("feedback"), progressEl = $("progress");
+const quizContainer = $("quiz-container"), resultContainer = $("result-container");
+const typeArea = $("type-area"), typeInput = $("type-input"), hintBtn = $("hint-btn");
+typeInput.oninput = () => { if (!isAnswerChecked) submitBtn.disabled = !typeInput.value.trim(); };
+typeInput.onkeydown = e => { if (e.key === "Enter" && !submitBtn.disabled) submitBtn.click(); };
+hintBtn.onclick = () => {
+  if (isAnswerChecked) return;
+  hintUsed = true; hintBtn.disabled = true;
+  $("hint-text").innerText = `Starts with "${qs[currentIndex].answers[0][0]}" (−0.5 point)`;
+  typeInput.focus();
+};
 
-    chord.forEach((freq, idx) => {
-      // เล่นคอร์ดแบบกระจายโน้ตเบาๆ (Strum / Arpeggio)
-      playSoftTone(freq, now + (idx * 0.08), 2.2);
+/* ===== 5. Menu ===== */
+function showMenu() {
+  $("rush-area").style.display = "none";
+  stopRush();
+  gamePlayArea.style.display = "none";
+  resultContainer.style.display = "none";
+  introContainer.style.display = "block";
+  cardEl.classList.remove("card-bounce", "card-shake");
+  const grid = $("mode-grid");
+  grid.innerHTML = "";
+  let doneCount = 0;
+  Object.keys(modes).forEach(m => {
+    const p = progress[m], total = totalOf(m), info = modes[m];
+    if (p.done) doneCount++;
+    const btn = document.createElement("button");
+    btn.className = "mode-card" + (p.done ? " done" : "");
+    btn.innerHTML = `<div class="mode-icon">${info.icon}</div>
+      <div class="mode-name">${info.name}</div>
+      <div class="mode-sub">${info.sub} · ${m === "rush" ? "" : total + " "}${m === "rush" ? "60 sec" : "questions"}</div>
+      <div class="mode-bar"><div style="width:${p.done ? 100 : 0}%"></div></div>
+      <div class="mode-status">${p.done ? (m === "rush" ? `✅ Completed · Best ${p.best} pts` : `✅ Completed · Best ${p.best}/${total}`) : "Not played yet"}</div>`;
+    btn.onclick = () => startMode(m);
+    grid.appendChild(btn);
+  });
+  const nModes = Object.keys(modes).length;
+  $("overall-text").innerText = `${doneCount} / ${nModes} modes completed`;
+  $("overall-fill").style.width = `${doneCount / nModes * 100}%`;
+}
+
+function startMode(m) {
+  startLoFiMusic();
+  stopRush();
+  currentMode = m;
+  qs = questions.filter(q => q.type === m);
+  currentIndex = 0; score = 0;
+  wrongCategories = { comparison:0, past_simple:0 };
+  introContainer.style.display = "none";
+  resultContainer.style.display = "none";
+  quizContainer.style.display = m === "rush" ? "none" : "block";
+  $("rush-area").style.display = m === "rush" ? "block" : "none";
+  gamePlayArea.style.display = "block";
+  $("mode-label").innerText = `${modes[m].icon} ${modes[m].name}`;
+  m === "rush" ? startRush() : loadQuestion();
+}
+
+/* ===== 6. Quiz ===== */
+function loadQuestion() {
+  isAnswerChecked = false;
+  feedbackEl.style.display = "none";
+  feedbackEl.className = "feedback-box";
+  cardEl.classList.remove("card-bounce", "card-shake");
+  submitBtn.innerText = "Check Answer";
+  submitBtn.disabled = true;
+  $("count-label").innerText = `${currentIndex + 1} / ${qs.length}`;
+
+  typeArea.style.display = "none";
+  const q = qs[currentIndex];
+  if (q.type === "mc") {
+    builderContainer.style.display = "none";
+    optionsEl.style.display = "grid";
+    promptTextEl.innerText = "Choose the correct option to fill in the blank:";
+    const parts = q.sentence.split("___");
+    sentenceEl.innerHTML = `${parts[0]}<span class="blank" id="blank-space">...</span>${parts[1] || ""}`;
+    selectedOption = null; selectedBtn = null;
+    optionsEl.innerHTML = "";
+    q.options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.innerText = opt;
+      btn.onclick = () => selectChoice(opt, btn);
+      optionsEl.appendChild(btn);
     });
-
-    chordIndex = (chordIndex + 1) % lofiChords.length;
-    loFiLoopTimer = setTimeout(scheduleLoFiStep, 2100);
+  } else if (q.type === "type") {
+    builderContainer.style.display = "none";
+    optionsEl.style.display = "none";
+    typeArea.style.display = "block";
+    promptTextEl.innerText = `Type the ${q.form} form of:`;
+    sentenceEl.innerHTML = `<span class="blank" style="min-width:0;padding:0 16px;">${q.base}</span>`;
+    typeInput.value = ""; typeInput.readOnly = false; typeInput.className = "type-input";
+    hintUsed = false; hintBtn.disabled = false; $("hint-text").innerText = "";
+    typeInput.focus();
+  } else {
+    optionsEl.style.display = "none";
+    builderContainer.style.display = "block";
+    promptTextEl.innerText = "Arrange the sentence:";
+    sentenceEl.innerText = q.prompt;
+    userArrangedWords = [];
+    builderTargetBox.innerHTML = "";
+    builderWordBank.innerHTML = "";
+    [...q.words].sort(() => Math.random() - 0.5).forEach((word, idx) => {
+      const token = document.createElement("div");
+      token.className = "word-token";
+      token.innerText = word;
+      token.dataset.wordId = `${word}-${idx}`;
+      token.onclick = () => { if (!isAnswerChecked) addWordToTarget(word, token); };
+      builderWordBank.appendChild(token);
+    });
   }
+  progressEl.style.width = `${currentIndex / qs.length * 100}%`;
+}
 
-  function startLoFiMusic() {
-    initAudio();
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    if (!isMusicPlaying) {
-      isMusicPlaying = true;
-      musicToggle.innerText = "❚❚";
-      scheduleLoFiStep();
-    }
-  }
+function selectChoice(option, clickedBtn) {
+  if (isAnswerChecked) return;
+  selectedOption = option; selectedBtn = clickedBtn;
+  document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+  clickedBtn.classList.add("selected");
+  $("blank-space").innerText = option;
+  submitBtn.disabled = false;
+}
 
-  function pauseLoFiMusic() {
-    isMusicPlaying = false;
-    musicToggle.innerText = "▶";
-    clearTimeout(loFiLoopTimer);
-  }
-
-  musicToggle.onclick = () => {
-    if (isMusicPlaying) {
-      pauseLoFiMusic();
-    } else {
-      startLoFiMusic();
-    }
-  };
-
-  volumeCtrl.oninput = (e) => {
-    if (masterGain) {
-      masterGain.gain.value = parseFloat(e.target.value);
-    }
-  };
-
-  /* ============================================================
-     2. Quiz Question Bank (20 Questions)
-     ============================================================ */
-  const questions = [
-    // --- Multiple Choice: Comparison (6 items) ---
-    {
-      type: "mc",
-      category: "comparison",
-      sentence: "An elephant is ___ than a lion.",
-      options: ["bigger", "biggest", "more big", "big"],
-      answer: "bigger"
-    },
-    {
-      type: "mc",
-      category: "comparison",
-      sentence: "Mount Everest is the ___ mountain in the world.",
-      options: ["higher", "highest", "most high", "more high"],
-      answer: "highest"
-    },
-    {
-      type: "mc",
-      category: "comparison",
-      sentence: "This puzzle is ___ than the one we did yesterday.",
-      options: ["difficult", "difficulter", "more difficult", "most difficult"],
-      answer: "more difficult"
-    },
-    {
-      type: "mc",
-      category: "comparison",
-      sentence: "That was the ___ movie I have ever seen.",
-      options: ["bad", "worse", "worst", "baddest"],
-      answer: "worst"
-    },
-    {
-      type: "mc",
-      category: "comparison",
-      sentence: "Travelling by plane is ___ than going by train.",
-      options: ["faster", "fastest", "more fast", "most fast"],
-      answer: "faster"
-    },
-    {
-      type: "mc",
-      category: "comparison",
-      sentence: "She is the ___ student in our class.",
-      options: ["smart", "smarter", "smartest", "most smart"],
-      answer: "smartest"
-    },
-
-    // --- Multiple Choice: Past Simple (6 items) ---
-    {
-      type: "mc",
-      category: "past_simple",
-      sentence: "Exhausted from the long hike, he ___ down under the shade and slept soundly.",
-      options: ["lay", "laid", "lied", "lain"],
-      answer: "lay"
-    },
-    {
-      type: "mc",
-      category: "past_simple",
-      sentence: "Why ___ you contact the admissions office yesterday when the deadline was approaching?",
-      options: ["didn't", "weren't", "hadn't", "haven't"],
-      answer: "didn't"
-    },
-    {
-      type: "mc",
-      category: "past_simple",
-      sentence: "A large number of rare artifacts ___ stolen from the museum last month.",
-      options: ["were", "was", "are", "have been"],
-      answer: "were"
-    },
-    {
-      type: "mc",
-      category: "past_simple",
-      sentence: "The newly launched sports car ___ him a fortune two years ago.",
-      options: ["cost", "costed", "was costing", "had costed"],
-      answer: "cost"
-    },
-    {
-      type: "mc",
-      category: "past_simple",
-      sentence: "The committee ___ the strict policy despite numerous student protests last term.",
-      options: ["enacted", "enact", "has enacted", "was enacted"],
-      answer: "enacted"
-    },
-    {
-      type: "mc",
-      category: "past_simple",
-      sentence: "It was high time the municipal authorities ___ action against air pollution.",
-      options: ["took", "take", "taken", "had taken"],
-      answer: "took"
-    },
-
-    // --- Simplified Sentence Builder: Comparison (4 items) ---
-    {
-      type: "reorder",
-      category: "comparison",
-      prompt: "Arrange the words to form a comparative sentence:",
-      targetSentence: "A plane is faster than a train",
-      words: ["faster", "than", "A", "train", "plane", "is", "a"]
-    },
-    {
-      type: "reorder",
-      category: "comparison",
-      prompt: "Arrange the words to form a superlative sentence:",
-      targetSentence: "She is the smartest student here",
-      words: ["the", "student", "here", "smartest", "She", "is"]
-    },
-    {
-      type: "reorder",
-      category: "comparison",
-      prompt: "Arrange the words to form a comparative sentence:",
-      targetSentence: "This exam is more difficult today",
-      words: ["more", "is", "exam", "today", "difficult", "This"]
-    },
-    {
-      type: "reorder",
-      category: "comparison",
-      prompt: "Arrange the words to form a superlative sentence:",
-      targetSentence: "It was the best day ever",
-      words: ["the", "day", "was", "best", "It", "ever"]
-    },
-
-    // --- Simplified Sentence Builder: Past Simple (4 items) ---
-    {
-      type: "reorder",
-      category: "past_simple",
-      prompt: "Arrange the words to form a past simple question:",
-      targetSentence: "What did you see yesterday",
-      words: ["see", "What", "did", "yesterday", "you"]
-    },
-    {
-      type: "reorder",
-      category: "past_simple",
-      prompt: "Arrange the words to form a past negative sentence:",
-      targetSentence: "We did not go to school",
-      words: ["did", "go", "We", "school", "not", "to"]
-    },
-    {
-      type: "reorder",
-      category: "past_simple",
-      prompt: "Arrange the words to form an affirmative past sentence:",
-      targetSentence: "She bought a new car yesterday",
-      words: ["bought", "yesterday", "new", "car", "a", "She"]
-    },
-    {
-      type: "reorder",
-      category: "past_simple",
-      prompt: "Arrange the words to form an affirmative past sentence:",
-      targetSentence: "They played football last night",
-      words: ["last", "football", "played", "night", "They"]
-    }
-  ];
-
-  let currentIndex = 0;
-  let score = 0;
-  let isAnswerChecked = false;
-
-  let selectedOption = null;
-  let selectedBtn = null;
-  let userArrangedWords = [];
-
-  let wrongCategories = {
-    comparison: 0,
-    past_simple: 0
-  };
-
-  const introContainer = document.getElementById("intro-container");
-  const gamePlayArea = document.getElementById("game-play-area");
-  const cardEl = document.getElementById("game-card");
-  const promptTextEl = document.getElementById("prompt-text");
-  const sentenceEl = document.getElementById("sentence-text");
-  const optionsEl = document.getElementById("options-container");
-  const builderContainer = document.getElementById("builder-container");
-  const builderTargetBox = document.getElementById("builder-target-box");
-  const builderWordBank = document.getElementById("builder-word-bank");
-  const submitBtn = document.getElementById("submit-btn");
-  const feedbackEl = document.getElementById("feedback");
-  const progressEl = document.getElementById("progress");
-  const quizContainer = document.getElementById("quiz-container");
-  const resultContainer = document.getElementById("result-container");
-  const finalScoreEl = document.getElementById("final-score");
-  const gradeBadgeEl = document.getElementById("grade-badge");
-  const adviceBoxEl = document.getElementById("advice-box");
-
-  function startGame() {
-    startLoFiMusic();
-    introContainer.style.display = "none";
-    gamePlayArea.style.display = "block";
-    loadQuestion();
-  }
-
-  function loadQuestion() {
-    isAnswerChecked = false;
-    feedbackEl.style.display = "none";
-    feedbackEl.className = "feedback-box";
-    cardEl.classList.remove("card-bounce", "card-shake");
-    submitBtn.innerText = "Check Answer";
-    submitBtn.disabled = true;
-
-    const currentData = questions[currentIndex];
-
-    if (currentData.type === "mc") {
-      builderContainer.style.display = "none";
-      optionsEl.style.display = "grid";
-      promptTextEl.innerText = "Choose the correct option to fill in the blank:";
-      
-      const parts = currentData.sentence.split("___");
-      sentenceEl.innerHTML = `${parts[0]}<span class="blank" id="blank-space">...</span>${parts[1] || ""}`;
-
-      selectedOption = null;
-      selectedBtn = null;
-      optionsEl.innerHTML = "";
-      currentData.options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.className = "option-btn";
-        btn.innerText = opt;
-        btn.onclick = () => selectChoice(opt, btn);
-        optionsEl.appendChild(btn);
-      });
-    } else {
-      optionsEl.style.display = "none";
-      builderContainer.style.display = "block";
-      promptTextEl.innerText = "Arrange the sentence:";
-      sentenceEl.innerText = currentData.prompt;
-
-      userArrangedWords = [];
-      builderTargetBox.innerHTML = "";
-      builderWordBank.innerHTML = "";
-
-      const shuffled = [...currentData.words].sort(() => Math.random() - 0.5);
-      shuffled.forEach((word, idx) => {
-        const token = document.createElement("div");
-        token.className = "word-token";
-        token.innerText = word;
-        token.dataset.wordId = `${word}-${idx}`;
-
-        token.onclick = () => {
-          if (isAnswerChecked) return;
-          addWordToTarget(word, token);
-        };
-        builderWordBank.appendChild(token);
-      });
-    }
-
-    const progressPct = (currentIndex / questions.length) * 100;
-    progressEl.style.width = `${progressPct}%`;
-  }
-
-  function selectChoice(option, clickedBtn) {
+function addWordToTarget(word, sourceToken) {
+  sourceToken.classList.add("disabled");
+  const targetToken = document.createElement("div");
+  targetToken.className = "word-token in-target";
+  targetToken.innerText = word;
+  targetToken.onclick = () => {
     if (isAnswerChecked) return;
-
-    selectedOption = option;
-    selectedBtn = clickedBtn;
-    document.querySelectorAll(".option-btn").forEach(btn => btn.classList.remove("selected"));
-    clickedBtn.classList.add("selected");
-    
-    document.getElementById("blank-space").innerText = option;
-    submitBtn.disabled = false;
-  }
-
-  function addWordToTarget(word, sourceToken) {
-    sourceToken.classList.add("disabled");
-
-    const targetToken = document.createElement("div");
-    targetToken.className = "word-token in-target";
-    targetToken.innerText = word;
-    targetToken.dataset.originId = sourceToken.dataset.wordId;
-
-    targetToken.onclick = () => {
-      if (isAnswerChecked) return;
-      sourceToken.classList.remove("disabled");
-      builderTargetBox.removeChild(targetToken);
-      userArrangedWords = userArrangedWords.filter(item => item.token !== targetToken);
-      submitBtn.disabled = userArrangedWords.length === 0;
-    };
-
-    builderTargetBox.appendChild(targetToken);
-    userArrangedWords.push({ word: word, token: targetToken });
-    submitBtn.disabled = false;
-  }
-
-  submitBtn.onclick = () => {
-    if (!isAnswerChecked) {
-      isAnswerChecked = true;
-      const currentData = questions[currentIndex];
-      feedbackEl.style.display = "block";
-
-      let isCorrect = false;
-
-      if (currentData.type === "mc") {
-        if (selectedOption === currentData.answer) {
-          isCorrect = true;
-          selectedBtn.classList.add("correct");
-          selectedBtn.innerText = `${selectedOption} ✓`;
-        } else {
-          selectedBtn.classList.add("wrong");
-          selectedBtn.innerText = `${selectedOption} ✗`;
-        }
-      } else {
-        const builtSentence = userArrangedWords.map(w => w.word).join(" ").trim();
-        if (builtSentence.toLowerCase() === currentData.targetSentence.toLowerCase()) {
-          isCorrect = true;
-        }
-      }
-
-      if (isCorrect) {
-        score++;
-        feedbackEl.className = "feedback-box feedback-correct";
-        feedbackEl.innerText = "Excellent! That is correct.";
-        cardEl.classList.add("card-bounce");
-      } else {
-        wrongCategories[currentData.category]++;
-        feedbackEl.className = "feedback-box feedback-wrong";
-        const answerText = currentData.type === "mc" ? currentData.answer : currentData.targetSentence;
-        feedbackEl.innerText = `Incorrect. The correct answer is: "${answerText}"`;
-        cardEl.classList.add("card-shake");
-      }
-
-      if (currentData.type === "mc") {
-        document.querySelectorAll(".option-btn").forEach(btn => btn.disabled = true);
-      }
-      submitBtn.innerText = "Continue";
-    } else {
-      currentIndex++;
-      if (currentIndex < questions.length) {
-        loadQuestion();
-      } else {
-        showResults();
-      }
-    }
+    sourceToken.classList.remove("disabled");
+    builderTargetBox.removeChild(targetToken);
+    userArrangedWords = userArrangedWords.filter(i => i.token !== targetToken);
+    submitBtn.disabled = userArrangedWords.length === 0;
   };
+  builderTargetBox.appendChild(targetToken);
+  userArrangedWords.push({ word, token: targetToken });
+  submitBtn.disabled = false;
+}
 
-  function showResults() {
-    progressEl.style.width = "100%";
-    quizContainer.style.display = "none";
-    resultContainer.style.display = "block";
-    finalScoreEl.innerText = `Score: ${score} / ${questions.length}`;
-
-    let gradeText = "";
-    let badgeClass = "";
-    if (score >= 18) {
-      gradeText = "🌟 Proficiency: Excellent (Mastery)";
-      badgeClass = "badge-excellent";
-    } else if (score >= 14) {
-      gradeText = "👍 Proficiency: Good (Competent)";
-      badgeClass = "badge-good";
-    } else if (score >= 10) {
-      gradeText = "⚠️ Proficiency: Fair (Developing)";
-      badgeClass = "badge-fair";
+submitBtn.onclick = () => {
+  if (!isAnswerChecked) {
+    isAnswerChecked = true;
+    const q = qs[currentIndex];
+    feedbackEl.style.display = "block";
+    let isCorrect = false;
+    if (q.type === "mc") {
+      if (selectedOption === q.answer) {
+        isCorrect = true;
+        selectedBtn.classList.add("correct");
+        selectedBtn.innerText = `${selectedOption} ✓`;
+      } else {
+        selectedBtn.classList.add("wrong");
+        selectedBtn.innerText = `${selectedOption} ✗`;
+      }
+      document.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
+    } else if (q.type === "type") {
+      const val = typeInput.value.trim().toLowerCase().replace(/\s+/g, " ");
+      isCorrect = q.answers.includes(val);
+      typeInput.readOnly = true; hintBtn.disabled = true;
+      typeInput.classList.add(isCorrect ? "t-correct" : "t-wrong");
     } else {
-      gradeText = "❗ Proficiency: Needs Improvement";
-      badgeClass = "badge-improve";
+      const built = userArrangedWords.map(w => w.word).join(" ").trim();
+      isCorrect = built.toLowerCase() === q.targetSentence.toLowerCase();
     }
-    gradeBadgeEl.className = `badge-level ${badgeClass}`;
-    gradeBadgeEl.innerText = gradeText;
-
-    let adviceHtml = `<h4>💡 Recommendations for Improvement:</h4>`;
-    if (score === questions.length) {
-      adviceHtml += `<p style="margin:0;">Outstanding performance! You have mastered both Comparative/Superlative constructs and Past Simple syntax.</p>`;
+    if (isCorrect) {
+      score += (q.type === "type" && hintUsed) ? 0.5 : 1;
+      feedbackEl.className = "feedback-box feedback-correct";
+      feedbackEl.innerText = "Excellent! That is correct.";
+      cardEl.classList.add("card-bounce");
     } else {
-      adviceHtml += `<ul style="margin: 6px 0 0 18px; padding: 0;">`;
-      if (wrongCategories.comparison > 0) {
-        adviceHtml += `<li><b>Comparatives & Superlatives (${wrongCategories.comparison} error/s):</b> Review comparative word order with <code>than</code>, superlative markers with <code>the most / -est</code>, and irregular adjective changes.</li>`;
-      }
-      if (wrongCategories.past_simple > 0) {
-        adviceHtml += `<li><b>Past Simple Tense (${wrongCategories.past_simple} error/s):</b> Review question structures (<code>did + Subject + V.1</code>), negative forms (<code>did not + V.1</code>), and irregular past verbs.</li>`;
-      }
-      if (score < 10) {
-        adviceHtml += `<li style="color:#b91c1c;"><b>Notice:</b> Please revisit the grammar summaries on the home screen before trying again.</li>`;
-      }
-      adviceHtml += `</ul>`;
+      wrongCategories[q.category]++;
+      feedbackEl.className = "feedback-box feedback-wrong";
+      feedbackEl.innerText = `Incorrect. The correct answer is: "${q.type === "mc" ? q.answer : q.type === "type" ? q.answers[0] : q.targetSentence}"`;
+      cardEl.classList.add("card-shake");
     }
-    adviceBoxEl.innerHTML = adviceHtml;
+    submitBtn.innerText = currentIndex + 1 < qs.length ? "Continue" : "See Results";
+  } else {
+    currentIndex++;
+    currentIndex < qs.length ? loadQuestion() : showResults();
   }
+};
 
-  function restartGame() {
-    currentIndex = 0;
-    score = 0;
-    wrongCategories = { comparison: 0, past_simple: 0 };
-    resultContainer.style.display = "none";
-    quizContainer.style.display = "block";
-    introContainer.style.display = "block";
-    gamePlayArea.style.display = "none";
+/* ===== 7. Results ===== */
+function showResults() {
+  progressEl.style.width = "100%";
+  quizContainer.style.display = "none";
+  resultContainer.style.display = "block";
+  const total = qs.length, pct = score / total * 100;
+
+  progress[currentMode].done = true;
+  progress[currentMode].best = Math.max(progress[currentMode].best, score);
+  saveProgress();
+
+  $("result-title").innerText = `${modes[currentMode].icon} ${modes[currentMode].name} — Results`;
+  $("final-score").innerText = `Score: ${score} / ${total}`;
+
+  let gradeText, badgeClass;
+  if (pct >= 90) { gradeText = "🌟 Proficiency: Excellent (Mastery)"; badgeClass = "badge-excellent"; }
+  else if (pct >= 70) { gradeText = "👍 Proficiency: Good (Competent)"; badgeClass = "badge-good"; }
+  else if (pct >= 50) { gradeText = "⚠️ Proficiency: Fair (Developing)"; badgeClass = "badge-fair"; }
+  else { gradeText = "❗ Proficiency: Needs Improvement"; badgeClass = "badge-improve"; }
+  $("grade-badge").className = `badge-level ${badgeClass}`;
+  $("grade-badge").innerText = gradeText;
+
+  let html = `<h4>💡 Recommendations for Improvement:</h4>`;
+  if (score === total) {
+    html += `<p style="margin:0;">Outstanding performance! You have mastered both Comparative/Superlative constructs and Past Simple syntax in this mode.</p>`;
+  } else {
+    html += `<ul style="margin:6px 0 0 18px;padding:0;">`;
+    if (wrongCategories.comparison > 0)
+      html += `<li><b>Comparatives & Superlatives (${wrongCategories.comparison} error/s):</b> Review comparative word order with <code>than</code>, superlative markers with <code>the most / -est</code>, and irregular adjective changes.</li>`;
+    if (wrongCategories.past_simple > 0)
+      html += `<li><b>Past Simple Tense (${wrongCategories.past_simple} error/s):</b> Review question structures (<code>did + Subject + V.1</code>), negative forms (<code>did not + V.1</code>), and irregular past verbs.</li>`;
+    if (pct < 50)
+      html += `<li style="color:#b91c1c;"><b>Notice:</b> Please revisit the grammar summaries on the home screen before trying again.</li>`;
+    html += `</ul>`;
   }
+  html += nextHint();
+  $("advice-box").innerHTML = html;
+}
+
+function nextHint() {
+  const other = Object.keys(modes).find(k => k !== currentMode && !progress[k].done);
+  return other ? `<p style="margin:10px 0 0;">👉 Next up: try <b>${modes[other].name}</b> from the menu!</p>` : "";
+}
+
+/* ===== 8. True/False Rush ===== */
+const RUSH_TIME = 60;
+let rushTimer = null, rushEnd = 0, rushList = [], rushIdx = 0, rushScore = 0, rushStreak = 0, rushCorrect = 0, rushAnswered = 0, rushLock = false;
+function stopRush() { clearInterval(rushTimer); rushTimer = null; }
+const rushMult = () => Math.min(4, 1 + Math.floor(rushStreak / 3));
+function updateRushStats(left) {
+  $("count-label").innerText = `⏱ ${Math.ceil(left)}s · ${rushScore} pts · x${rushMult()}`;
+  progressEl.style.width = `${left / RUSH_TIME * 100}%`;
+}
+function startRush() {
+  stopRush();
+  rushList = [...rushItems].sort(() => Math.random() - 0.5);
+  rushIdx = 0; rushScore = 0; rushStreak = 0; rushCorrect = 0; rushAnswered = 0; rushLock = false;
+  $("rush-feedback").style.display = "none";
+  $("rush-sentence").innerText = rushList[0].s;
+  rushEnd = Date.now() + RUSH_TIME * 1000;
+  updateRushStats(RUSH_TIME);
+  rushTimer = setInterval(() => {
+    const left = Math.max(0, (rushEnd - Date.now()) / 1000);
+    updateRushStats(left);
+    if (left <= 0) finishRush();
+  }, 200);
+}
+function answerRush(val) {
+  if (rushLock || !rushTimer) return;
+  const it = rushList[rushIdx], fb = $("rush-feedback");
+  rushAnswered++;
+  cardEl.classList.remove("card-bounce", "card-shake"); void cardEl.offsetWidth;
+  fb.style.display = "block";
+  if (val === it.t) {
+    rushStreak++; rushCorrect++;
+    const pts = 10 * rushMult(); rushScore += pts;
+    fb.className = "feedback-box feedback-correct"; fb.innerText = `✅ Correct! +${pts}`;
+    cardEl.classList.add("card-bounce");
+  } else {
+    rushStreak = 0; wrongCategories[it.c]++;
+    fb.className = "feedback-box feedback-wrong"; fb.innerText = `❌ That sentence is actually ${it.t ? "TRUE" : "FALSE"}`;
+    cardEl.classList.add("card-shake");
+  }
+  rushLock = true;
+  setTimeout(() => {
+    if (!rushTimer) return;
+    rushLock = false; rushIdx++;
+    fb.style.display = "none";
+    if (rushIdx >= rushList.length) return finishRush();
+    $("rush-sentence").innerText = rushList[rushIdx].s;
+  }, val === it.t ? 350 : 900);
+}
+function finishRush() {
+  stopRush();
+  progressEl.style.width = "0%";
+  $("rush-area").style.display = "none";
+  resultContainer.style.display = "block";
+  const p = progress.rush;
+  p.done = true; p.best = Math.max(p.best, rushScore); saveProgress();
+  $("result-title").innerText = `${modes.rush.icon} ${modes.rush.name} — Results`;
+  $("final-score").innerText = `${rushScore} pts (${rushCorrect}/${rushAnswered} correct)`;
+  let t, c;
+  if (rushScore >= 250) { t = "🌟 Speed: Excellent"; c = "badge-excellent"; }
+  else if (rushScore >= 150) { t = "👍 Speed: Good"; c = "badge-good"; }
+  else if (rushScore >= 70) { t = "⚠️ Speed: Fair"; c = "badge-fair"; }
+  else { t = "❗ Speed: Keep Practicing"; c = "badge-improve"; }
+  $("grade-badge").className = `badge-level ${c}`;
+  $("grade-badge").innerText = t;
+  let html = `<h4>💡 Recommendations for Improvement:</h4><p style="margin:0;">Best score: <b>${p.best} pts</b>. Answer 3 in a row to raise your multiplier (up to x4)!</p><ul style="margin:6px 0 0 18px;padding:0;">`;
+  if (wrongCategories.comparison) html += `<li><b>Comparatives & Superlatives (${wrongCategories.comparison} miss):</b> watch for <code>more + -er</code> and irregular forms like <code>best</code>.</li>`;
+  if (wrongCategories.past_simple) html += `<li><b>Past Simple (${wrongCategories.past_simple} miss):</b> after <code>did / didn't</code> use V.1, and learn irregular V.2.</li>`;
+  html += `</ul>` + nextHint();
+  $("advice-box").innerHTML = html;
+}
+
+showMenu();
 </script>
 </body>
 </html>
